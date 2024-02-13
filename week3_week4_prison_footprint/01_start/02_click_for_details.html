@@ -42,21 +42,21 @@ width:50%;
     //5. fill map popups with data
     //6. set new map center for popup map on click
     //7. test
-	mapboxgl.accessToken = 'your access token here';
+	mapboxgl.accessToken = 'pk.eyJ1IjoibHV5YW5sMSIsImEiOiJjbHNqdXVsNncyOXd4Mm5sZ3dsdzFxOWc3In0.qNKIKnp2F9B2AB2NTKJTKg';
     const map = new mapboxgl.Map({
         container: 'map',
         // Choose from Mapbox's core styles, or make your own style with Mapbox Studio
-        style: 'main map style',
-        center: [],
-        zoom: 1
+        style: 'mapbox://styles/luyanl1/clsk01yku03qn01qq8wdk5t4u',
+        center: [-99.107,41.726],
+        zoom: 4
     });
 
     const popupMap = new mapboxgl.Map({
         container: 'popup',
         // Choose from Mapbox's core styles, or make your own style with Mapbox Studio
-        style: 'popup map style',
-        center: [],
-        zoom: 1
+        style: 'mapbox://styles/luyanl1/clsk0rwd703pq01o8cgle4kw8',
+        center: [-99.107,41.726],
+        zoom: 4
     });
 
 
@@ -64,6 +64,7 @@ width:50%;
    
         //line below console logs out the layers in your current map
         //console.log(map.getStyle().layers)
+        map.addLayer(console.log(map.getStyle().layers))
 
         // When a click event occurs on a feature in the places layer, open a popup at the
         // location of the feature, with description HTML from its properties.
@@ -73,12 +74,14 @@ width:50%;
             //using keys to access feature object
             //for example:
             const coordinates = clickedOnFeature.geometry.coordinates.slice();
-            //console.log out properties to see what is available as popup text.
-
+            //console.log out properties to see what is available as popup text. 
+            // HOW TO CHECK OUTPUT OF console.log?
+            //const id = clickedOnFeature.properties.id;
 
 
             //set the popupMap using .setCenter(coordinates to center on)            
-
+            popupMap.setCenter(coordinates)
+            
             // Ensure that if the map is zoomed out such that multiple
             // copies of the feature are visible, the popup appears
             // over the copy being pointed to.
@@ -89,7 +92,7 @@ width:50%;
             //populate the popup
             new mapboxgl.Popup()
                 .setLngLat(coordinates)
-                .setHTML("text here")
+                .setHTML(id)
                 .addTo(map);
         });
 
