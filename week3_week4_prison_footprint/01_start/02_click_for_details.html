@@ -53,10 +53,11 @@ width:50%;
 
     const popupMap = new mapboxgl.Map({
         container: 'popup',
-        // Choose from Mapbox's core styles, or make your own style with Mapbox Studio
+        // Choose from Mapbox's core styles,
+        // or make your own style with Mapbox Studio
         style: 'mapbox://styles/luyanl1/clsk0rwd703pq01o8cgle4kw8',
         center: [-99.107,41.726],
-        zoom: 4
+        zoom: 18
     });
 
 
@@ -64,24 +65,25 @@ width:50%;
    
         //line below console logs out the layers in your current map
         //console.log(map.getStyle().layers)
-        map.addLayer(console.log(map.getStyle().layers))
+       // map.addLayer(console.log(map.getStyle().layers))
 
         // When a click event occurs on a feature in the places layer, open a popup at the
         // location of the feature, with description HTML from its properties.
-        map.on('click', 'prison_population', (e) => {
+        map.on('click', 'newcentroids-cj8i1m', (e) => {
             // this is the feature that was clicked on
             const clickedOnFeature = e.features[0]
+            console.log(clickedOnFeature.properties.NAME)
             //using keys to access feature object
             //for example:
             const coordinates = clickedOnFeature.geometry.coordinates.slice();
             //console.log out properties to see what is available as popup text. 
             // HOW TO CHECK OUTPUT OF console.log?
-            //const id = clickedOnFeature.properties.id;
+            const id = clickedOnFeature.properties.id;
 
-
+            //console.log(coordinates)
             //set the popupMap using .setCenter(coordinates to center on)            
             popupMap.setCenter(coordinates)
-            
+
             // Ensure that if the map is zoomed out such that multiple
             // copies of the feature are visible, the popup appears
             // over the copy being pointed to.
@@ -92,7 +94,7 @@ width:50%;
             //populate the popup
             new mapboxgl.Popup()
                 .setLngLat(coordinates)
-                .setHTML(id)
+                .setHTML(coordinates)
                 .addTo(map);
         });
 
