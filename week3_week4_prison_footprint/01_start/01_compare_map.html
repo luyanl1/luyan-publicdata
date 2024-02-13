@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Prison Population 2010 - 2020 Comparison</title>
+<meta name="viewport" content="initial-scale=1,maximum-scale=1,user-scalable=no">
+<link href="https://api.mapbox.com/mapbox-gl-js/v3.1.2/mapbox-gl.css" rel="stylesheet">
+<script src="https://api.mapbox.com/mapbox-gl-js/v3.1.2/mapbox-gl.js"></script>
+<script src="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-compare/v0.4.0/mapbox-gl-compare.js"></script>
+<link rel="stylesheet" href="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-compare/v0.4.0/mapbox-gl-compare.css" type="text/css">
+<style>
+body { margin: 0; padding: 0; }
+#map { position: absolute; top: 0; bottom: 0; width: 100%; }
+</style>
+</head>
+<body>
+<style>
+body {
+overflow: hidden;
+}
+ 
+body * {
+-webkit-touch-callout: none;
+-webkit-user-select: none;
+-moz-user-select: none;
+-ms-user-select: none;
+user-select: none;
+} 
+.map {
+position: absolute;
+top: 0;
+bottom: 0;
+width: 100%;
+}
+.mapboxgl-compare .compare-swiper-vertical {
+	background-color: black;
+}
+.mapboxgl-compare {
+    background-color: black;}
+</style>
+<div id="comparison-container">
+<div id="before" class="map">
+</div>
+
+<div id="after" class="map"></div>
+</div>
+<script>
+
+//TODO:
+//1. make 2 mapstyles in mapbox
+//2. set mapboxgl.accessToken as your unique access token. Done
+//3. set the style for the before container to be your 2010 data style. Done
+//4. set the style for the after container to be your 2020 data style. Done
+//5. add center coordinates for each map
+//6. set zoom for each map
+//7. test on your local server
+//8. INDEPENDENTLY - add label for each map - 
+//HINT: use 2 <div></div> elements for your titles and set them to have z-index to be greater than map div so they show on top
+
+
+	mapboxgl.accessToken = 'pk.eyJ1IjoibHV5YW5sMSIsImEiOiJjbHNqdXVsNncyOXd4Mm5sZ3dsdzFxOWc3In0.qNKIKnp2F9B2AB2NTKJTKg';
+	const beforeMap = new mapboxgl.Map({
+	container: 'before',
+	// Choose from Mapbox's core styles, or make your own style with Mapbox Studio
+	style: 'mapbox://styles/luyanl1/clsjtdehj03px01qq0ml05y77',
+	center: [-99.107,41.726],
+	zoom: 4,
+	minZoom:1
+	});
+
+		// Add zoom and rotation controls to the map.
+		beforeMap.addControl(new mapboxgl.NavigationControl());
+		beforeMap.addControl(new mapboxgl.FullscreenControl());
+		// Add a scale control to the map
+		beforeMap.addControl(new mapboxgl.ScaleControl());
+
+	const afterMap = new mapboxgl.Map({
+	container: 'after',
+	style: 'mapbox://styles/luyanl1/clsjtnlzf03p101o899eq0bxe',
+	center: [-99.107,41.726],
+	zoom: 4,
+	minZoom:1
+	});
+		// Add zoom and rotation controls to the map.
+		afterMap.addControl(new mapboxgl.NavigationControl());
+		afterMap.addControl(new mapboxgl.FullscreenControl());
+		// Add a scale control to the map
+		afterMap.addControl(new mapboxgl.ScaleControl());
+ 
+	// A selector or reference to HTML element
+	const container = '#comparison-container';
+	
+	const map = new mapboxgl.Compare(beforeMap, afterMap, container, {
+	// Set this to enable comparing two maps by mouse movement:
+	// mousemove: true
+	});
+
+
+
+
+</script>
+ 
+</body>
+</html>
