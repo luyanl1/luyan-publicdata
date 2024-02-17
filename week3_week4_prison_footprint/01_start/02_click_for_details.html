@@ -57,7 +57,7 @@ width:50%;
         // or make your own style with Mapbox Studio
         style: 'mapbox://styles/luyanl1/clsk0rwd703pq01o8cgle4kw8',
         center: [-99.107,41.726],
-        zoom: 18
+        zoom: 16
     });
 
 
@@ -72,19 +72,26 @@ width:50%;
         map.on('click', 'newcentroids-cj8i1m', (e) => {
             // this is the feature that was clicked on
             const clickedOnFeature = e.features[0]
-            console.log(clickedOnFeature.properties.NAME)
             //using keys to access feature object
             //for example:
-            const coordinates = clickedOnFeature.geometry.coordinates.slice();
+
             //console.log out properties to see what is available as popup text. 
-            // HOW TO CHECK OUTPUT OF console.log?
-            const id = clickedOnFeature.properties.id;
+            const coordinates = clickedOnFeature.geometry.coordinates.slice();
+            const name = clickedOnFeature.properties.NAME;
+            const population = clickedOnFeature.properties.POPULATION;
+            const capacity = clickedOnFeature.properties.CAPACITY;
+            const securityLevel = clickedOnFeature.properties.SECURELVL;
+
+            console.log(coordinates)
+
+            popupMap.setCenter(coordinates)
+
 
             //console.log(coordinates)
             //set the popupMap using .setCenter(coordinates to center on)            
             popupMap.setCenter(coordinates)
 
-            // Ensure that if the map is zoomed out such that multiple
+            // Ensure that if the map is zoomed out such that multiple›
             // copies of the feature are visible, the popup appears
             // over the copy being pointed to.
             while (Math.abs(e.lngLat.lng - coordinates[0]) > 180) {
@@ -94,17 +101,17 @@ width:50%;
             //populate the popup
             new mapboxgl.Popup()
                 .setLngLat(coordinates)
-                .setHTML(coordinates)
+                .setHTML("Facility: "+name+"<br>Capacity: "+capacity+"<br>Population: "+population+"<br>Security Level: "+securityLevel)
                 .addTo(map);
         });
 
         // Change the cursor to a pointer when the mouse is over the places layer.
-        map.on('mouseenter', 'prison_population', () => {
+        map.on('mouseenter', 'newcentroids-cj8i1m', () => {
             map.getCanvas().style.cursor = 'pointer';
         });
 
         // Change it back to a pointer when it leaves.
-        map.on('mouseleave', 'prison_population', () => {
+        map.on('mouseleave', 'newcentroids-cj8i1m', () => {
             map.getCanvas().style.cursor = '';
         });
     });
