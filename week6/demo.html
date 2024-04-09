@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>in class work from scratch</title>
+<style>
+    #demo1{
+       color:gold; 
+    }
+    #demo2{
+       color:cyan; 
+    }
+    .demo{
+        font-size:30px;
+    }
+    p{
+        padding:40px;
+    }
+</style>
+</head>
+
+<body>
+    <div id="demo2" class="demo">
+        This is the in class demo2
+    </div>
+
+    <p class = "demo">
+        this is a paragraph
+    </p>
+
+    <div id="demo1" class="demo">
+        This is the in class demo1
+    </div>
+
+  <script>
+    var a = 0
+    let b = 5
+    const c = 4
+
+    a= a+1
+    b = b+a
+    
+    console.log("a=", a)
+    console.log("b=",b)
+
+    var aList = [a,b,c]
+    console.log(aList)
+    console.log(aList[2])
+
+var aObject = {
+    apples:5,
+    bananas:10,
+    pears:100
+}
+
+console.log(aObject)
+
+console.log(Object.keys(aObject))
+console.log(Object.values(aObject))
+
+console.log(aObject.apples)
+
+console.log(aObject["apples"])
+
+
+//count from 0 - 100
+//starting at 0, increase by 1, until it is the value of 100
+let countingList = []
+
+let oddList = []
+let evenList= []
+
+for(let x = 0; x<100; x=x+1){
+    //console.log(x)
+    //countingList.push(x)
+    if(x%2==0){
+        evenList.push(x)
+    }else{
+        oddList.push(x)
+    }
+}
+console.log(evenList)
+console.log(oddList)
+
+//console.log(countingList)
+
+//if else -
+
+//mode operator %
+//console.log(209848473778%2)
+//console.log(293938473%2)
+
+
+//if divisible by 3 and 5 print foobar
+//if x is divisible by 3 print foo
+//if divisible by 5 print bar
+for(let x = 0; x<100; x=x+1){
+    if(x%15==0){
+        console.log(x, "foobar")
+    }else if(x%3==0){
+        console.log(x, "foo")
+    }else if(x%5==0){
+        console.log(x, "bar")
+    }else{
+        console.log(x)
+    }
+}
+
+const students =["Bailey Allen","Shunshan Chen","Haoge Gan","Omer Gorashi",
+    "Luyan Li","Shumeng Liu","Judd Smith","Wesley Song","Yuhan Xu","Zemin Yan Sr.",
+    "Hansheng Zhu","Yuanlong Zhu"]
+
+    console.log(students.length)
+
+    var groupNumbers = [1,1,2,2,3,3,4,4,5,5,6,6]
+
+    console.log(students.sort())
+
+    console.log(Math.random())
+
+let studentsWithRandomNumbers = []
+
+    for(let s =0; s< students.length; s=s+1){
+        // console.log(s)
+        // console.log(students[s])
+        let currentStudent = {name: students[s], order:Math.random()}
+        //console.log(currentStudent)
+        studentsWithRandomNumbers.push(currentStudent)
+    }
+
+    studentsWithRandomNumbers.sort(function(a,b){
+       // console.log(a.order,b.order)
+        return a.order-b.order
+    })
+    console.log(studentsWithRandomNumbers)
+
+
+    students.sort(function(a,b){
+        return Math.random()-Math.random()
+    })
+
+    for(let s =0; s<students.length; s++){
+        console.log(students[s],groupNumbers[s])
+    }
+
+</script>
+</body>
+
+</html>

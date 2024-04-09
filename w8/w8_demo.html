@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>shapes</title>
+    <script src="d3.js"></script>
+
+<style>
+</style>
+<body>
+    <div id = "chart"></div>
+<div id ="button">button</div>
+<div id ="state">state name will go here</div>
+<script>
+
+var csvPath = "ACSST1Y2022/ACSST1Y2022.S1903-Data.csv"
+var csvFile = d3.csv(csvPath)
+
+Promise.all([csvFile])
+.then(function(data){
+console.log(data)
+var censusData = data[0]
+
+//S1903_7family+income
+
+var svg = d3.select("#chart")
+            .append("svg")
+            .attr("width",500)
+            .attr("height",500)
+
+var incomeScale = d3.scaleLinear()
+        .domain([0,200000])
+        .range([0,500])
+
+ var cScale = d3.scaleLinear()
+.domain([0,200000])
+.range(["red","green"])
+
+svg.selectAll(".dots")
+.data(censusData)
+.enter()
+.append("circle")
+.attr("id",function(d){
+    return d["Geo_ID"]
+})
+.attr("r",10)
+.attr("cy",function(d){
+    return d["S1903_C03_029E"]
+
+.attr("cy",50)
+.attr("cx",function(d,i){
+    //console.log (d["S1903_C03_029E"])
+    var medianIncome = d["S1903_C03_029E"]
+    return incomeScale (medianIncome)
+
+})
+.attr("opacity",.5)
+.attr("fill",function(d){
+    var medianIncome = d["S1903_C03_029E"]
+    return cScale (medianIncome)
+})
+.on("mouseover",function(d){
+    console.log(d.NAME)
+    d3.select("#state").html(d.NAME+":+d"["S1903_C03_029E"])
+   
+    d3.select(this)
+    .attr("opactiy",1)
+    .attr("r",50)
+})
+.on("mouseout",function(d){
+    d3.select(this)
+    .attr("opactiy",.5)
+    .attr("r",50)
+})
+
+d3.select("#button")
+.on("click",function(d){
+    d3.selectAll("circle")
+    .transition()
+    .duration(1000)
+    .delay(function(d,i){
+        return i*10
+})
+.attr("cy",200)
+
+})
+
+
+})
+
+</script>
+
+</body>

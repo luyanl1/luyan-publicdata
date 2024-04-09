@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Display a popup on click</title>
+<meta name="viewport" content="initial-scale=1,maximum-scale=1,user-scalable=no">
+<link href="https://api.mapbox.com/mapbox-gl-js/v3.1.2/mapbox-gl.css" rel="stylesheet">
+<script src="https://api.mapbox.com/mapbox-gl-js/v3.1.2/mapbox-gl.js"></script>
+<style>
+body { margin: 0; padding: 0; height:100%}
+</style>
+</head>
+<body>
+
+<style>
+    .mapboxgl-popup {
+        max-width: 400px;
+        font: 12px/20px 'Helvetica Neue', Arial, Helvetica, sans-serif;
+    }
+
+    #map{
+        z-index:-1;
+        position: absolute; top: 0; bottom: 0;        
+        width:100%;
+    }
+</style>
+<div id="map"></div>
+<script>
+    mapboxgl.accessToken = 'pk.eyJ1Ijoid2VzbGV5c29uZzIyIiwiYSI6ImNqNHVwMW1mZzBsbW0zM25ramZ2cXB2OWoifQ.yNI2W-1LDzsJ7ziqTZkV-g';
+    const map = new mapboxgl.Map({
+        container: 'map',
+        style: 'mapbox://styles/wesleysong22/clud4o7o400gg01pd1plt8pm1',
+        center: [-73.9795, 40.6687],
+        zoom: 15
+    });
+
+    map.on('load', () => {
+        // When a click event occurs on a feature in the places layer, open a popup at the location of the feature.
+        map.on('click', '0402testfinal-872eun', (e) => {
+            const clickedOnFeature = e.features[0];
+            const coordinates = e.lngLat; // Using e.lngLat directly
+            
+            // Extract desired properties
+            const address = clickedOnFeature.properties.Address;
+            const zoneDist1 = clickedOnFeature.properties.ZoneDist1;
+            const overlay1 = clickedOnFeature.properties.Overlay1;
+            const ownerName = clickedOnFeature.properties.OwnerName;
+            const lotArea = clickedOnFeature.properties.LotArea;
+            const bldgArea = clickedOnFeature.properties.BldgArea;
+            const comArea = clickedOnFeature.properties.ComArea;
+            const resArea = clickedOnFeature.properties.ResArea;
+            const retailArea = clickedOnFeature.properties.RetailArea;
+            const officeArea = clickedOnFeature.properties.OfficeArea;
+            const garageArea = clickedOnFeature.properties.GarageArea;
+            const numFloors = clickedOnFeature.properties.NumFloors;
+            const unitsRes = clickedOnFeature.properties.UnitsRes;
+            const unitsTotal = clickedOnFeature.properties.UnitsTotal;
+            const assessLand = clickedOnFeature.properties.AssessLand;
+            const yearBuilt = clickedOnFeature.properties.YearBuilt;
+            const yearAlter1 = clickedOnFeature.properties.YearAlter1;
+            const yearAlter2 = clickedOnFeature.properties.YearAlter2;
+            const histDist = clickedOnFeature.properties.HistDist;
+            const builtFAR = clickedOnFeature.properties.BuiltFAR;
+            const residFAR = clickedOnFeature.properties.ResidFAR;
+            const taxMap = clickedOnFeature.properties.TaxMap;
+            const currentFAR = clickedOnFeature.properties.CurrentFAR;
+
+            // Populate the popup with feature information.
+            new mapboxgl.Popup()
+                .setLngLat(coordinates)
+                .setHTML(
+                    `<strong>Address:</strong> ${address}<br>
+                     <strong>ZoneDist1:</strong> ${zoneDist1}<br>
+                     <strong>Overlay1:</strong> ${overlay1}<br>
+                     <strong>OwnerName:</strong> ${ownerName}<br>
+                     <strong>LotArea:</strong> ${lotArea}<br>
+                     <strong>BldgArea:</strong> ${bldgArea}<br>
+                     <strong>ComArea:</strong> ${comArea}<br>
+                     <strong>ResArea:</strong> ${resArea}<br>
+                     <strong>RetailArea:</strong> ${retailArea}<br>
+                     <strong>OfficeArea:</strong> ${officeArea}<br>
+                     <strong>GarageArea:</strong> ${garageArea}<br>
+                     <strong>NumFloors:</strong> ${numFloors}<br>
+                     <strong>UnitsRes:</strong> ${unitsRes}<br>
+                     <strong>UnitsTotal:</strong> ${unitsTotal}<br>
+                     <strong>AssessLand:</strong> ${assessLand}<br>
+                     <strong>YearBuilt:</strong> ${yearBuilt}<br>
+                     <strong>YearAlter1:</strong> ${yearAlter1}<br>
+                     <strong>YearAlter2:</strong> ${yearAlter2}<br>
+                     <strong>HistDist:</strong> ${histDist}<br>
+                     <strong>BuiltFAR:</strong> ${builtFAR}<br>
+                     <strong>ResidFAR:</strong> ${residFAR}<br>
+                     <strong>TaxMap:</strong> ${taxMap}<br>
+                     <strong>CurrentFAR:</strong> ${currentFAR}`
+                )
+                .addTo(map);
+        });
+
+        // Change the cursor to a pointer when hovering over the places layer.
+        map.on('mouseenter', '0402testfinal-872eun', () => {
+            map.getCanvas().style.cursor = 'pointer';
+        });
+
+        // Change the cursor back to the default when leaving the places layer.
+        map.on('mouseleave', '0402testfinal-872eun', () => {
+            map.getCanvas().style.cursor = '';
+        });
+    });
+</script>
+
+</body>
+</html>

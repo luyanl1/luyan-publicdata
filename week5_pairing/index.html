@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>in class pairs</title>
+  <link href="style.css" rel="stylesheet" />
+  <script src="d3.js"></script>
+  <style>
+    .names{
+        font-size:24px;
+        font-family: Arial, Helvetica, sans-serif;
+        padding:2px
+    }
+  </style>
+</head>
+<body>
+<div id="names"></div>
+  <script>
+//HERE IS A BASIC LOGIC STRUCTURE
+//NAME: for loop
+//USE CASE: iterate over data 
+//FUNCTION: for as long as something is true(exists, etc), do this
+
+
+//BELOW is the in class exercise on partnering up
+
+    //here is everyone in an array
+    let students =["Bailey Allen","Shunshan Chen","Haoge Gan","Omer Gorashi",
+    "Luyan Li","Shumeng Liu","Judd Smith","Wesley Song","Yuhan Xu","Zemin Yan Sr.",
+    "Hansheng Zhu","Yuanlong Zhu"]
+    console.log(students)
+
+    //pairing - 6 pairs of 2 students
+    //method 2 let's echo the real conditions of picking numbers out of a hat
+    let hat = [0,0,1,1,2,2,3,3,4,4,5,5]
+    console.log(hat)
+
+    //shuffle what's in the hat
+    let withNewOrder = []
+
+    for(var h in hat){
+        //h is the index
+        console.log(h)
+        // let hNumber = hat[h]
+        // let hOrder = Math.random()
+        // withNewOrder.push({hNumber:hNumber, hOrder:hOrder})
+        // console.log(withNewOrder)
+    }
+  //  let sortedRandomly = withNewOrder.sort(function(a,b){return a.hOrder-b.hOrder})
+    //console.log(sortedRandomly)
+
+    //the most succinctly:
+    //let randomlySorted = hat.sort(function(a,b){return Math.random()-Math.random()})
+
+    //assign students to random numbers
+
+    // let studentsWithHatNumbers = []
+    // for(let s in students){
+    //     let studentName = students[s]
+    //     let studentNumber = sortedRandomly[s].hNumber
+    //     console.log(studentName, studentNumber)
+    //     studentsWithHatNumbers.push([studentName,studentNumber])
+    // }
+
+    //adding conditions
+
+
+
+    //script to display names - not the focus for now
+
+    // d3.select("#names")
+    // .data(studentsWithHatNumbers)
+    // .enter()
+    // .append("div")
+    // .html(function(d){return d})
+    // .attr("class","names")
+
+  </script>
+</body>
+</html>
+
