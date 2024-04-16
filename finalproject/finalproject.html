@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Display a popup on click</title>
+<meta name="viewport" content="initial-scale=1,maximum-scale=1,user-scalable=no">
+<link href="https://api.mapbox.com/mapbox-gl-js/v3.1.2/mapbox-gl.css" rel="stylesheet">
+<script src="https://api.mapbox.com/mapbox-gl-js/v3.1.2/mapbox-gl.js"></script>
+<style>
+    body { margin: 0; padding: 0; height:100%}
+
+    .mapboxgl-popup {
+        max-width: 400px;
+        font: 12px/20px 'Helvetica Neue', Arial, Helvetica, sans-serif;
+    }
+
+    #popup-map {
+        width:30%;
+        position: absolute; top: 0; bottom: 0;        
+        left:70%;
+        z-index:1;
+        border:1px solid black;
+    }
+    #map{
+        z-index:-1;
+        position: absolute; top: 0; bottom: 0;        
+        width:70%;
+    }
+    #investment{
+        font-size: 25px;
+        background-color: rgba(255, 219, 179,0.7);
+        padding: 1px 1px
+    }
+    #yellow-square01 {
+        position: absolute;
+        top: 40px; 
+        left: 20px; 
+        width: 20px;
+        height: 20px; 
+        background-color: rgb(251, 255, 36);
+        color: black;
+        font-size: 14px;
+        text-align: center;
+        line-height: 20px; 
+    }
+    #yellow-text01 {
+        position: absolute;
+        top: 40px; 
+        left: 45px; 
+        font-size: 14px; 
+    }    
+    #yellow-square02 {
+        position: absolute;
+        top: 70px; 
+        left: 20px; 
+        width: 20px;
+        height: 20px; 
+        background-color: rgb(255, 186, 107);
+        color: black;
+        font-size: 14px;
+        text-align: center;
+        line-height: 20px; 
+    }
+    #yellow-text02 {
+        position: absolute;
+        top: 70px; 
+        left: 45px; 
+        font-size: 14px; 
+    }    
+    #yellow-square03 {
+        position: absolute;
+        top: 100px; 
+        left: 20px; 
+        width: 20px;
+        height: 20px; 
+        background-color: rgb(250, 133, 0);
+        color: black;
+        font-size: 14px;
+        text-align: center;
+        line-height: 20px; 
+    }
+    #yellow-text03 {
+        position: absolute;
+        top: 100px; 
+        left: 45px; 
+        font-size: 14px; 
+    }    
+    #yellow-square04 {
+        position: absolute;
+        top: 130px; 
+        left: 20px; 
+        width: 20px;
+        height: 20px; 
+        background-color: rgb(163, 87, 0);
+        color: black;
+        font-size: 14px;
+        text-align: center;
+        line-height: 20px; 
+    }
+    #yellow-text04 {
+        position: absolute;
+        top: 130px; 
+        left: 45px; 
+        font-size: 14px; 
+    }    
+    #yellow-square05 {
+        position: absolute;
+        top: 160px; 
+        left: 20px; 
+        width: 20px;
+        height: 20px; 
+        background-color: rgb(71, 38, 0);
+        color: black;
+        font-size: 14px;
+        text-align: center;
+        line-height: 20px; 
+    }
+    #yellow-text05 {
+        position: absolute;
+        top: 160px; 
+        left: 45px; 
+        font-size: 14px; 
+    }    
+    #yellow-text06 {
+        position: absolute;
+        top: 200px; 
+        left: 20px; 
+        font-size: 10px; 
+        white-space: nowrap; 
+    }    
+    #text-container {
+    position: absolute;
+    top: 40px; /* Adjust as needed */
+    left: 0px; /* Adjust as needed */
+    background-color: rgba(255, 255, 255, 0.647); /* Adjust as needed */
+    padding: 130px; /* Adjust as needed */
+    border-radius: 0px; /* Adjust as needed */
+}
+
+.text-box {
+    margin-bottom: 10px; /* Adjust as needed */
+}
+
+.square {
+    width: 170px; /* Adjust as needed */
+    height: 170px; /* Adjust as needed */
+    margin-right: 5px; /* Adjust as needed */
+}
+
+.text {
+    font-size: 14px; /* Adjust as needed */
+}
+.image {
+        width: 100%;
+        height: auto;
+        margin-bottom: 20px; /* Adjust spacing between images */
+    }
+
+</style>
+<div id="investment">
+    Investment Opportunities in Park Slope
+</div>
+<div id="map"></div>
+<div id="popup-map"></div>
+
+<div id="text-container">
+    <div class="text-box">
+        <div id="yellow-square01" class="square" style="background-color: rgb(251, 255, 36);"></div>
+        <span id="yellow-text01" class="text"> Current FAR = 0 - 0.01</span>
+    </div>
+    <div class="text-box">
+        <div id="yellow-square02" class="square" style="background-color: rgb(255, 186, 107);"></div>
+        <span id="yellow-text02" class="text"> Current FAR = 0.1 - 0.4</span>
+    </div>
+    <div class="text-box">
+        <div id="yellow-square03" class="square" style="background-color: rgb(250, 133, 0);"></div>
+        <span id="yellow-text03" class="text"> Current FAR = 0.4 - 0.6</span>
+    </div>
+    <div class="text-box">
+        <div id="yellow-square04" class="square" style="background-color: rgb(163, 87, 0);"></div>
+        <span id="yellow-text04" class="text"> Current FAR = 0.6 - 0.8</span>
+    </div>
+    <div class="text-box">
+        <div id="yellow-square05" class="square" style="background-color: rgb(71, 38, 0);"></div>
+        <span id="yellow-text05" class="text"> Current FAR = 0.8 - 1 </span>
+    </div>
+    <div class="text-box">
+        <span id="yellow-text06" class="text">
+            <span>Current Building Area to Max Resi Buildable Area Ratio</span><br>
+            <span>= Building Area / (Resi FAR * Lot Area)</span>
+        </span>
+    </div>
+    <div id="text-container">
+        <!-- First image -->
+        <img class="image" src="image1.jpg" alt="Image 1">
+        <!-- Second image -->
+        <img class="image" src="image2.jpg" alt="Image 2">
+        <!-- Third image -->
+        <img class="image" src="image3.jpg" alt="Image 3">
+    </div>
+</div>
+
+<script>
+    mapboxgl.accessToken = 'pk.eyJ1Ijoid2VzbGV5c29uZzIyIiwiYSI6ImNqNHVwMW1mZzBsbW0zM25ramZ2cXB2OWoifQ.yNI2W-1LDzsJ7ziqTZkV-g';
+    const map = new mapboxgl.Map({
+        container: 'map',
+        style: 'mapbox://styles/wesleysong22/clud4o7o400gg01pd1plt8pm1',
+        center: [-73.9795, 40.6687],
+        bearing: 32.5,
+        zoom: 15
+    });
+
+    const popupMap = new mapboxgl.Map({
+        container: 'popup-map',
+        style: 'mapbox://styles/wesleysong22/clusl7ohg001g01qs4j5sb21s',
+        center: [-73.9795, 40.6687],
+        bearing: 32.5,
+        zoom: 15
+    });
+
+    map.on('load', () => {
+        map.on('click', '0402testfinal-872eun', (e) => {
+            const clickedOnFeature = e.features[0];
+            const coordinates = e.lngLat;
+
+            // Set the center and zoom of the right map to the clicked coordinates
+            popupMap.flyTo({
+                center: coordinates,
+                zoom: 18.5, 
+                essential: true 
+            });
+
+            // Extract desired properties
+            const address = clickedOnFeature.properties.Address;
+            const zoneDist1 = clickedOnFeature.properties.ZoneDist1;
+            const overlay1 = clickedOnFeature.properties.Overlay1;
+            const ownerName = clickedOnFeature.properties.OwnerName;
+            const lotArea = clickedOnFeature.properties.LotArea;
+            const bldgArea = clickedOnFeature.properties.BldgArea;
+            const comArea = clickedOnFeature.properties.ComArea;
+            const resArea = clickedOnFeature.properties.ResArea;
+            const retailArea = clickedOnFeature.properties.RetailArea;
+            const officeArea = clickedOnFeature.properties.OfficeArea;
+            const garageArea = clickedOnFeature.properties.GarageArea;
+            const numFloors = clickedOnFeature.properties.NumFloors;
+            const unitsRes = clickedOnFeature.properties.UnitsRes;
+            const unitsTotal = clickedOnFeature.properties.UnitsTotal;
+            const assessLand = clickedOnFeature.properties.AssessLand;
+            const yearBuilt = clickedOnFeature.properties.YearBuilt;
+            const yearAlter1 = clickedOnFeature.properties.YearAlter1;
+            const yearAlter2 = clickedOnFeature.properties.YearAlter2;
+            const histDist = clickedOnFeature.properties.HistDist;
+            const builtFAR = clickedOnFeature.properties.BuiltFAR;
+            const residFAR = clickedOnFeature.properties.ResidFAR;
+            const taxMap = clickedOnFeature.properties.TaxMap;
+            const currentFAR = clickedOnFeature.properties.CurrentFAR;
+
+            new mapboxgl.Popup()
+                .setLngLat(coordinates)
+                .setHTML(
+                    `<strong>Address:</strong> ${address}<br>
+                     <strong>ZoneDist1:</strong> ${zoneDist1}<br>
+                     <strong>Overlay1:</strong> ${overlay1}<br>
+                     <strong>OwnerName:</strong> ${ownerName}<br>
+                     <strong>LotArea:</strong> ${lotArea}<br>
+                     <strong>BldgArea:</strong> ${bldgArea}<br>
+                     <strong>ComArea:</strong> ${comArea}<br>
+                     <strong>ResArea:</strong> ${resArea}<br>
+                     <strong>RetailArea:</strong> ${retailArea}<br>
+                     <strong>OfficeArea:</strong> ${officeArea}<br>
+                     <strong>GarageArea:</strong> ${garageArea}<br>
+                     <strong>NumFloors:</strong> ${numFloors}<br>
+                     <strong>UnitsRes:</strong> ${unitsRes}<br>
+                     <strong>UnitsTotal:</strong> ${unitsTotal}<br>
+                     <strong>AssessLand:</strong> ${assessLand}<br>
+                     <strong>YearBuilt:</strong> ${yearBuilt}<br>
+                     <strong>YearAlter1:</strong> ${yearAlter1}<br>
+                     <strong>YearAlter2:</strong> ${yearAlter2}<br>s
+                     <strong>HistDist:</strong> ${histDist}<br>
+                     <strong>BuiltFAR:</strong> ${builtFAR}<br>
+                     <strong>ResidFAR:</strong> ${residFAR}<br>
+                     <strong>TaxMap:</strong> ${taxMap}<br>
+                     <strong>CurrentFAR:</strong> ${currentFAR}`
+                )
+                .addTo(map);
+        });
+
+        map.on('mouseenter', '0402testfinal-872eun', () => {
+            map.getCanvas().style.cursor = 'pointer';
+        });
+
+        map.on('mouseleave', '0402testfinal-872eun', () => {
+            map.getCanvas().style.cursor = '';
+        });
+    });
+</script>
+
+</body>
+</html>
